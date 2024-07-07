@@ -1,0 +1,9 @@
+{
+    "interval_click": 5,
+    "random_click": {
+        "min": 100,
+        "max": 200
+    },
+    "auto_upgrade": false,
+    "auto_buy_box": false
+}
