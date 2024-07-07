@@ -1,5 +1,6 @@
 {
     "interval_click": 5,
+    "countdown": 300,
     "random_click": {
         "min": 100,
         "max": 200
