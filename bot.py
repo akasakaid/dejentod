@@ -283,7 +283,7 @@ class DejenTod:
                 self.set_authorization(token)
                 self.account()
                 print(line)
-                self.countdown(self.var_countdown)
+            self.countdown(self.var_countdown)
 
 
 if __name__ == "__main__":
