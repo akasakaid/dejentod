@@ -130,6 +130,7 @@ class DejenTod:
         self.interval_click = config["interval_click"]
         self.auto_upgrade = config["auto_upgrade"]
         self.auto_buy_box = config["auto_buy_box"]
+        self.var_countdown = config["countdown"]
 
     def account(self):
         info_url = "https://api.djdog.io/pet/information"
@@ -259,28 +260,30 @@ class DejenTod:
             sys.exit()
         self.log(f"{hijau}total account : {putih}{len(datas)}")
         print(line)
-        for no, data in enumerate(datas):
-            self.log(
-                f"{hijau}account number : {putih}{no + 1}{hijau}/{putih}{len(datas)}"
-            )
-            parser = self.marin_kitagawa(data)
-            user = json.loads(parser["user"])
-            userid = user["id"]
-            token = self.get_token(userid)
-            if token is None:
-                token = self.login(data)
+        while True:
+            for no, data in enumerate(datas):
+                self.log(
+                    f"{hijau}account number : {putih}{no + 1}{hijau}/{putih}{len(datas)}"
+                )
+                parser = self.marin_kitagawa(data)
+                user = json.loads(parser["user"])
+                userid = user["id"]
+                token = self.get_token(userid)
                 if token is None:
-                    continue
-                self.save_token(userid, token)
-            if self.is_expired(token):
-                token = self.login(data)
-                if token is None:
-                    continue
-                self.save_token(userid, token)
+                    token = self.login(data)
+                    if token is None:
+                        continue
+                    self.save_token(userid, token)
+                if self.is_expired(token):
+                    token = self.login(data)
+                    if token is None:
+                        continue
+                    self.save_token(userid, token)
 
-            self.set_authorization(token)
-            self.account()
-            print(line)
+                self.set_authorization(token)
+                self.account()
+                print(line)
+                self.countdown(self.var_countdown)
 
 
 if __name__ == "__main__":
